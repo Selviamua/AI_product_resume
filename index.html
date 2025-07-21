@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>李嘉烁 - 腾讯战略部AI实习生</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .tab-active {
+            border-color: #0284c7; /* sky-600 */
+            color: #0284c7;
+            background-color: #e0f2fe; /* sky-100 */
+        }
+        .tab-inactive {
+            border-color: transparent;
+            color: #475569; /* slate-600 */
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .project-card, .award-item {
+            transition: all 0.3s ease-in-out;
+        }
+        .project-card .details, .award-item .details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+
+        <!-- Header -->
+        <header class="flex flex-col md:flex-row items-center justify-between mb-8">
+            <div class="text-center md:text-left">
+                <h1 class="text-4xl font-bold text-slate-900" id="header-name">李嘉烁</h1>
+                <p class="text-xl text-sky-700 mt-1" id="header-headline">AI产品实习生</p>
+                <div class="flex items-center justify-center md:justify-start space-x-4 mt-3 text-slate-600 text-sm">
+                    <span id="header-location">◎ 深圳</span>
+                    <span>|</span>
+                    <span id="header-phone">17362281906</span>
+                    <span>|</span>
+                    <span id="header-email">212144787@qq.com</span>
+                    <span>|</span>
+                    <span id="header-age">21岁</span>
+                </div>
+            </div>
+            <div class="flex space-x-2 mt-4 md:mt-0">
+                <span class="bg-sky-100 text-sky-800 text-xs font-medium px-2.5 py-1 rounded-full">AI 产品爱好者</span>
+                <span class="bg-rose-100 text-rose-800 text-xs font-medium px-2.5 py-1 rounded-full">市场洞察者</span>
+                <span class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-1 rounded-full">实践型构建者</span>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <div class="mb-8 border-b border-slate-200">
+            <nav class="flex flex-wrap -mb-px" aria-label="Tabs">
+                <button class="tab-btn tab-active text-base font-medium text-center py-3 px-4 border-b-2" data-tab="overview">概览</button>
+                <button class="tab-btn tab-inactive text-base font-medium text-center py-3 px-4 border-b-2" data-tab="projects">项目经验</button>
+                <button class="tab-btn tab-inactive text-base font-medium text-center py-3 px-4 border-b-2" data-tab="skills-awards">技能与奖项</button>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Overview Section -->
+            <section id="overview" class="content-section active">
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <h2 class="text-2xl font-bold mb-4 text-slate-800">个人简介</h2>
+                    <div id="summary-content" class="prose prose-slate max-w-none text-slate-700 space-y-3">
+                        <!-- Summary will be injected by JavaScript -->
+                    </div>
+
+                    <h3 class="text-xl font-bold mt-8 mb-4 text-slate-800">教育背景</h3>
+                    <div id="education-content" class="prose prose-slate max-w-none text-slate-700">
+                        <!-- Education will be injected by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-sm mt-8">
+                    <h2 class="text-2xl font-bold mb-4 text-slate-800">核心能力一览</h2>
+                    <p class="text-slate-600 mb-6">以下是我在AI创新产品实习岗位上所需核心能力的自我评估。这反映了我的知识储备和实践经验，我渴望在实习中将这些能力转化为实际的产品价值。</p>
+                    <div class="chart-container w-full max-w-lg mx-auto h-80 md:h-96">
+                        <canvas id="abilityChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="content-section">
+                   <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <h2 class="text-2xl font-bold mb-4 text-slate-800">项目经验</h2>
+                    <p class="text-slate-600 mb-6">在这些项目中，我不仅学习和应用了前沿的AI技术，更重要的是，我经历了从概念构思到功能实现、测试优化和文档撰写的完整产品流程。点击项目卡片可以查看更多详情。</p>
+                    <div id="project-list" class="space-y-4">
+                        <!-- Project items will be injected by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills & Awards Section -->
+            <section id="skills-awards" class="content-section">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <h2 class="text-2xl font-bold mb-4 text-slate-800">专业技能</h2>
+                        <p class="text-slate-600 mb-6">我掌握了产品设计、数据分析及软件开发所需的多项技能，并熟练运用相关工具来提升工作效率。</p>
+                        <div id="skills-list" class="space-y-6">
+                            <!-- Skills will be injected by JavaScript -->
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <h2 class="text-2xl font-bold mb-4 text-slate-800">荣誉奖项</h2>
+                        <p class="text-slate-600 mb-6">这些奖项不仅是对我学业能力的肯定，更是我运用数学建模、算法和团队协作解决复杂问题的实践证明。</p>
+                        <div id="awards-list" class="space-y-2">
+                             <!-- Awards will be injected by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Function to strip HTML tags from a string
+        function stripHtml(html) {
+            let doc = new DOMParser().parseFromString(html, 'text/html');
+            return doc.body.textContent || "";
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Fetch resume data from the uploaded JSON file
+            // In a real scenario, you'd fetch this from a server or a predefined JSON object
+            // For this example, we'll assume resumeData is already available from the previous tool code output.
+            const resumeData = {
+              "basics": {
+                "name": "李嘉烁",
+                "headline": "AI产品实习生",
+                "email": "212144787@qq.com",
+                "phone": "17362281906",
+                "location": "深圳",
+                "url": {
+                  "label": "",
+                  "href": ""
+                },
+                "customFields": [
+                  {
+                    "id": "xxdk36hrvbcphpt1z2f7bkpx",
+                    "icon": "",
+                    "name": "21岁",
+                    "value": ""
+                  }
+                ],
+                "picture": {
+                  "url": "",
+                  "size": 64,
+                  "aspectRatio": 1,
+                  "borderRadius": 0,
+                  "effects": {
+                    "hidden": false,
+                    "border": false,
+                    "grayscale": false
+                  }
+                }
+              },
+              "sections": {
+                "summary": {
+                  "name": "个人总结",
+                  "columns": 1,
+                  "separateLinks": true,
+                  "visible": true,
+                  "id": "summary",
+                  // Updated content as per user's request
+                  "content": "<p class=\"my-2\">具备扎实的技术理解能力，深入掌握AI大模型技术原理 ，并广泛体验了ChatGPT、Gemini、豆包、Coze扣子空间、GitHub Copilot等AI产品 。尤其在AI智能体（Agent）的设计、操作与管理方面拥有丰富经验 ，并熟悉AI产品的工作流（Workflow）设计方法与流程。</p><p class=\"my-2\">熟知AIGC前沿技术及市场趋势 ，具备强数据分析与问题解决能力 ，能理解后端和算法的技术逻辑。</p><p class=\"my-2\">拥有合成生物学专业背景和科研经历，熟练研读论文，并具备较强的自驱力和自学能力。</p>"
+                },
+                "awards": {
+                  "name": "荣誉奖项",
+                  "columns": 1,
+                  "separateLinks": true,
+                  "visible": true,
+                  "id": "awards",
+                  "items": [
+                    {
+                      "id": "oa5ulcc2rsc5lqblywuxroch",
+                      "visible": true,
+                      "title": "全国大学生数学建模竞赛山东省二等奖",
+                      "awarder": "中国工业与应用数学学会",
+                      "date": "2024.10",
+                      "summary": "<p class=\"my-2\">主导开发了电子制造\"成本-质量-利润\"优化决策系统，通过建立0-1整数规划模型并实施分层求解策略：针对简单场景采用遍历法验证模型，复杂多工序系统则开发基于遗传算法的MATLAB求解器；创新性引入关系系数α并通过灵敏度分析验证方案鲁棒性，量化真实次品率±50%波动时最优决策的稳定性，最终为企业提供科学的动态质控策略。</p>",
+                      "url": {
+                        "label": "",
+                        "href": ""
+                      }
+                    },
+                    {
+                      "id": "crhs8hweiuhsy161sh44076m",
+                      "visible": true,
+                      "title": "中国合成生物学竞赛银奖",
+                      "awarder": "中国生物工程学会合成生物学分会",
+                      "date": "2024.8",
+                      "summary": "",
+                      "url": {
+                        "label": "",
+                        "href": ""
+                      }
+                    },
+                    {
+                      "id": "sjuqypmbadaxhom3gj41a1ly",
+                      "visible": true,
+                      "title": "美国大学生数学建模竞赛S奖（国际三等奖）",
+                      "awarder": "美国数学及其应用联合会",
+                      "date": "2025.2",
+                      "summary": "<p class=\"my-2\">基于历年各国不同项目的奥运奖牌数据对2027年洛杉矶奥运会的奖牌数据进行预测。我们运用指数平滑法来量化并预测运动员实力，并以此为基础构建了多元线性回归模型，实现了对奖牌数的精准预测 。通过均方误差与单变量敏感性分析对结果进行了评估 。此外，我们还创新性地运用时间序列分析来识别异常数据点，从而量化并验证了教练指导等因素对夺牌结果的影响 。</p>",
+                      "url": {
+                        "label": "",
+                        "href": ""
+                      }
+                    },
+                    {
+                      "id": "as4ri358ib2g6paf7el2iu4e",
+                      "visible": true,
+                      "title": "校内三等奖学金",
+                      "awarder": "",
+                      "date": "",
+                      "summary": "",
+                      "url": {
+                        "label": "",
+                        "href": ""
+                      }
+                    }
+                  ]
+                },
+                "certifications": {
+                  "name": "证书",
+                  "columns": 1,
+                  "separateLinks": true,
+                  "visible": true,
+                  "id": "certifications",
+                  "items": []
+                },
+                "education": {
+                  "name": "教育经历",
+                  "columns": 1,
+                  "separateLinks": true,
+                  "visible": true,
+                  "id": "education",
+                  "items": [
+                    {
+                      "id": "x8yw1y721lg0v0gy9neszkax",
+                      "visible": true,
+                      "institution": "青岛科技大学",
+                      "studyType": "本科",
+                      "area": "合成生物学",
+                      "score": "GPA3.05",
+                      "date": "2023.9-2027.6",
+                      "summary": "<p class=\"my-2\">主修课程：概率论与数理统计，高等数学，线性代数，Python程序设计，有机化学，生物化学，微生物学，分子生物学，合成生物学</p>",
+                      "url": {
+                        "label": "",
+                        "href": ""
+                      }
+                    }
+                  ]
+                },
+                "experience": {
+                  "name": "工作经历",
+                  "columns": 1,
+                  "separateLinks": true,
+                  "visible": true,
+                  "id": "experience",
+                  "items": []
+                },
+                "volunteer": {
+                  "name": "志愿者经历",
+                  "columns": 1,
+                  "separateLinks": true,
+                  "visible": true,
+                  "id": "volunteer",
+                  "items": []
+                },
+                "interests": {
+                  "name": "兴趣爱好",
+                  "columns": 1,
+                  "separateLinks": true,
+                  "visible": true,
+                  "id": "interests",
+                  "items": [
+                    {
+                      "id": "lpc8whv8wqbbe9xfcdftc0p7",
+                      "visible": true,
+                      "name": "关注AI技术前沿和行业趋势，体验最新的ai应用",
+                      "keywords": []
+                    }
+                  ]
+                },
+                "languages": {
+                  "name": "语言",
+                  "columns": 1,
+                  "separateLinks": true,
+                  "visible": true,
+                  "id": "languages",
+                  "items": [
+                    {
+                      "id": "mvrqkgk9imm5dgdq1xncoqmv",
+                      "visible": true,
+                      "name": "英语",
+                      "description": "CET-4，流畅浏览英语网站",
+                      "level": 3
+                    }
+                  ]
+                },
+                "profiles": {
+                  "name": "社交主页",
+                  "columns": 1,
+                  "separateLinks": true,
+                  "visible": true,
+                  "id": "profiles",
+                  "items": []
+                },
+                "projects": {
+                  "name": "项目经历",
+                  "columns": 1,
+                  "separateLinks": true,
+                  "visible": true,
+                  "id": "projects",
+                  "items": [
+                    {
+                      "id": "iqiv73cqc7z2ze6wh5f74dtl",
+                      "visible": true,
+                      "name": "二次元陪伴聊天机器人",
+                      "description": "",
+                      "date": "2025.6",
+                      "summary": "<p class=\"my-2\">基于Coze平台，对“支配恶魔”智能体模板进行功能与性能优化，构建面向2C端虚拟角色及情感陪聊场景的完整工作流 。通过深入分析用户情感需求并迭代优化，实现了固定伴侣人设，确保提供持续稳定的情感支持与交互体验</p>",
+                      "keywords": [
+                        "Coze扣子",
+                        "Prompt",
+                        "智能体设计",
+                        "工作流编排"
+                      ],
+                      "url": {
+                        "label": "",
+                        "href": ""
+                      }
+                    },
+                    {
+                      "id": "v5tjnzcmr0n1xnizsacx96hn",
+                      "visible": true,
+                      "name": "旅游出行规划助手",
+                      "description": "",
+                      "date": "2025.6-2025.7",
+                      "summary": "<p class=\"my-2\">基于CAMEL框架和Handy Multi-Agent教程，复现了一个模块化的多智能体协作系统，并独立完成了产品文档撰写和模拟运营策略设计。系统采用多智能体协作设计，包含用户意图识别、旅游信息检索、攻略生成和反馈优化等核心模块，支持从需求收集到个性化行程推荐的全流程自动化。通过前端交互界面，用户可灵活输入偏好并选择推荐模型，实现动态、智能的旅行规划体验。</p>",
+                      "keywords": [
+                        "多智能体",
+                        "CAMEL框架",
+                        "产品策划",
+                        "运营策略"
+                      ],
+                      "url": {
+                        "label": "",
+                        "href": ""
+                      }
+                    },
+                    {
+                      "id": "uli7syem5aoicr67pjrw59h3",
+                      "visible": true,
+                      "name": "Foundations-of-LLMs",
+                      "description": "",
+                      "date": "2025.5-2025.6",
+                      "summary": "<p class=\"my-2\">通过自学Github上浙江大学的大模型基础课程，深入理解了传统语言模型、大语言模型架构演化、Prompt工程、参数高效微调 (PEFT)、模型编辑、检索增强生成(RAG)等技术。掌握了Prompt设计原理与优化方法，能更好地与算法工程师协作，将技术潜力转化为产品功能</p>",
+                      "keywords": [
+                        "大模型",
+                        "RAG",
+                        "Prompt工程",
+                        "参数高效微调 (PEFT)",
+                        "模型编辑"
+                      ],
+                      "url": {
+                        "label": "",
+                        "href": ""
+                      }
+                    },
+                    {
+                      "id": "ld0l5htyyd02xl5uz1qjpy51",
+                      "visible": true,
+                      "name": "合成生物学竞赛蛋白设计赛",
+                      "description": "队长",
+                      "date": "2025.5-2025.6",
+                      "summary": "<p class=\"my-2\"><strong>技术应用</strong>：本项目利用人工智能技术设计具备高亮度和热稳定性的新型荧光蛋白。先利用预训练蛋白质语言模型ESM将荧光蛋白序列编码为高维特征向量，捕捉其进化与结构特征，再基于序列-荧光强度数据集构建XGBoost回归模型，实现蛋白质亮度的精准预测。结合生物学知识（基于文献、GFP结构分析及高亮度序列统计）开发了自动化突变体生成算法，引入热稳定性偏好策略定向生成数万候选序列，经预测模型评估和严格筛选后，最终获得6个兼具高亮度与优异热稳定性的avGFP优化突变体。</p><p class=\"my-2\"><strong>团队管理</strong>：作为队长，负责团队成员间的沟通协调与任务分配，确保项目按时高质量完成，并定期向指导老师汇报工作进展。</p>",
+                      "keywords": [
+                        "XGBoost回归预测",
+                        "ESM语言模型",
+                        "AI辅助设计",
+                        "团队管理"
+                      ],
+                      "url": {
+                        "label": "",
+                        "href": ""
+                      }
+                    }
+                  ]
+                },
+                "publications": {
+                  "name": "出版物",
+                  "columns": 1,
+                  "separateLinks": true,
+                  "visible": true,
+                  "id": "publications",
+                  "items": []
+                },
+                "references": {
+                  "name": "推荐信",
+                  "columns": 1,
+                  "separateLinks": true,
+                  "visible": true,
+                  "id": "references",
+                  "items": []
+                },
+                "skills": {
+                  "name": "技能",
+                  "columns": 4,
+                  "separateLinks": true,
+                  "visible": true,
+                  "id": "skills",
+                  "items": [
+                    {
+                      "id": "y4srv4fimqdqfmio6kb29t5a",
+                      "visible": true,
+                      "name": "Python",
+                      "description": "熟练运用Python进行数据处理，曾使用 Pandas 库对一份包含数万行数据的公开数据集进行数据清洗、缺失值处理和特征提取，并利用 Matplotlib 完成了多维度的数据可视化",
+                      "level": 4,
+                      "keywords": []
+                    },
+                    {
+                      "id": "k3webdjo8xeyfu3j62g09p52",
+                      "visible": true,
+                      "name": "产品设计",
+                      "description": "具备较好产品意识，熟悉用户分析和产品规划工具及方法。",
+                      "level": 3,
+                      "keywords": [
+                        "原型设计",
+                        "PRD撰写",
+                        "竞品分析",
+                        "用户画像"
+                      ]
+                    },
+                    {
+                      "id": "c7qkkhu7cxepa6315z1ere2b",
+                      "visible": true,
+                      "name": "AI 领域趋势与竞品分析",
+                      "description": "追读Alpha News的AI与前沿科技突破",
+                      "level": 3,
+                      "keywords": [
+                        "竞品分析",
+                        "市场调研",
+                        "技术趋势"
+                      ]
+                    },
+                    {
+                      "id": "syb16hz9oy6mk73a2cgr5l57",
+                      "visible": true,
+                      "name": "软件办公",
+                      "description": "熟练使用xmind、墨刀、word、excel、ppt等常用软件工具",
+                      "level": 3,
+                      "keywords": []
+                    }
+                  ]
+                },
+                "custom": {}
+              },
+              "metadata": {
+                "template": "onyx",
+                "layout": [
+                  [
+                    [
+                      "education",
+                      "profiles",
+                      "summary",
+                      "experience",
+                      "projects",
+                      "volunteer",
+                      "references"
+                    ],
+                    [
+                      "languages",
+                      "skills",
+                      "interests",
+                      "certifications",
+                      "awards",
+                      "publications"
+                    ]
+                  ]
+                ],
+                "css": {
+                  "value": ".section {\n\toutline: 1px solid #000;\n\toutline-offset: 4px;\n}",
+                  "visible": false
+                },
+                "page": {
+                  "margin": 28,
+                  "format": "a4",
+                  "options": {
+                    "breakLine": true,
+                    "pageNumbers": true
+                  }
+                },
+                "theme": {
+                  "background": "#fffefe",
+                  "text": "#242424",
+                  "primary": "#2563eb"
+                },
+                "typography": {
+                  "font": {
+                    "family": "Noto Sans SC",
+                    "subset": "chinese-simplified",
+                    "variants": [
+                      "regular"
+                    ],
+                    "size": 12
+                  },
+                  "lineHeight": 1,
+                  "hideIcons": false,
+                  "underlineLinks": false
+                },
+                "notes": ""
+              }
+            };
+
+            // Update Header Information
+            document.getElementById('header-name').textContent = resumeData.basics.name;
+            document.getElementById('header-headline').textContent = resumeData.basics.headline;
+            document.getElementById('header-location').textContent = '◎ ' + resumeData.basics.location;
+            document.getElementById('header-phone').textContent = resumeData.basics.phone;
+            document.getElementById('header-email').textContent = resumeData.basics.email;
+            if (resumeData.basics.customFields && resumeData.basics.customFields.length > 0) {
+                document.getElementById('header-age').textContent = resumeData.basics.customFields[0].name;
+            }
+
+            // Update Personal Summary
+            const summaryContentDiv = document.getElementById('summary-content');
+            // The summary content from JSON is already HTML, so we can directly set innerHTML
+            // However, the original structure was an ordered list. We'll convert the paragraphs to list items.
+            let summaryHtml = resumeData.sections.summary.content;
+            let tempDiv = document.createElement('div');
+            tempDiv.innerHTML = summaryHtml;
+            let paragraphs = tempDiv.querySelectorAll('p');
+            let ol = document.createElement('ol');
+            ol.classList.add('list-decimal', 'pl-5');
+            paragraphs.forEach(p => {
+                let li = document.createElement('li');
+                li.textContent = stripHtml(p.innerHTML); // Strip HTML from inside the paragraph
+                ol.appendChild(li);
+            });
+            summaryContentDiv.innerHTML = ''; // Clear existing content
+            summaryContentDiv.appendChild(ol);
+
+
+            // Update Education
+            const educationContentDiv = document.getElementById('education-content');
+            if (resumeData.sections.education.items && resumeData.sections.education.items.length > 0) {
+                const edu = resumeData.sections.education.items[0];
+                educationContentDiv.innerHTML = `
+                    <p><strong>${edu.institution}</strong> | ${edu.area} | ${edu.studyType} | ${edu.score} | ${edu.date}</p>
+                    <p>${stripHtml(edu.summary)}</p>
+                `;
+            }
+
+            // Data for Projects, Skills, and Awards from JSON
+            const projectData = resumeData.sections.projects.items.map(p => ({
+                title: p.name,
+                date: p.date,
+                summary: stripHtml(p.summary), // Convert HTML summary to plain text
+                details: p.summary.split('</p><p class="my-2">').map(s => stripHtml(s.replace(/<\/?p class="my-2">/g, ''))), // Split by paragraphs and strip HTML
+                tags: p.keywords
+            }));
+
+            const skillsData = [
+                {
+                    category: '产品设计',
+                    icon: '💡',
+                    skills: []
+                },
+                {
+                    category: 'AI 领域',
+                    icon: '🤖',
+                    skills: []
+                },
+                {
+                    category: '数据与开发',
+                    icon: '🐍',
+                    skills: []
+                },
+                {
+                    category: '软件与协作',
+                    icon: '💼',
+                    skills: []
+                }
+            ];
+
+            // Map JSON skills to predefined categories
+            resumeData.sections.skills.items.forEach(skillItem => {
+                if (skillItem.name === 'Python') {
+                    skillsData[2].skills.push(skillItem.name);
+                    if (skillItem.description) {
+                        skillsData[2].skills.push(skillItem.description);
+                    }
+                } else if (skillItem.name === '产品设计') {
+                    skillsData[0].skills.push(skillItem.name);
+                    skillsData[0].skills = skillsData[0].skills.concat(skillItem.keywords);
+                } else if (skillItem.name === 'AI 领域趋势与竞品分析') {
+                    skillsData[1].skills.push(skillItem.name);
+                    skillsData[1].skills = skillsData[1].skills.concat(skillItem.keywords);
+                } else if (skillItem.name === '软件办公') {
+                    skillsData[3].skills.push(skillItem.name);
+                    skillsData[3].skills = skillsData[3].skills.concat(skillItem.keywords);
+                }
+            });
+
+            const awardsData = resumeData.sections.awards.items.map(a => ({
+                title: a.title,
+                date: a.date,
+                details: stripHtml(a.summary) // Convert HTML summary to plain text
+            }));
+            
+            // Render Content
+            function renderProjects() {
+                const container = document.getElementById('project-list');
+                container.innerHTML = projectData.map(p => `
+                    <div class="project-card border border-slate-200 rounded-lg p-4 cursor-pointer hover:shadow-md hover:border-sky-300">
+                        <div class="flex justify-between items-start">
+                            <h3 class="text-lg font-bold text-slate-800">${p.title}</h3>
+                            <span class="text-sm text-slate-500 flex-shrink-0 ml-4">${p.date}</span>
+                        </div>
+                        <p class="text-slate-600 mt-2">${p.summary}</p>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            ${p.tags.map(tag => `<span class="bg-slate-100 text-slate-700 text-xs font-medium px-2 py-1 rounded-md">${tag}</span>`).join('')}
+                        </div>
+                        <div class="details mt-4 prose prose-sm max-w-none text-slate-600">
+                            <ul>
+                                ${p.details.map(d => `<li>${d}</li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            function renderSkills() {
+                const container = document.getElementById('skills-list');
+                container.innerHTML = skillsData.map(s => `
+                    <div>
+                        <h4 class="text-md font-bold text-slate-700 mb-3 flex items-center"><span class="mr-2">${s.icon}</span> ${s.category}</h4>
+                        <div class="flex flex-wrap gap-2">
+                            ${s.skills.map(skill => `<span class="bg-sky-100 text-sky-800 text-sm font-medium px-3 py-1 rounded-full">${skill}</span>`).join('')}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function renderAwards() {
+                const container = document.getElementById('awards-list');
+                container.innerHTML = awardsData.map(a => `
+                    <div class="award-item border-t border-slate-200 py-3 cursor-pointer">
+                        <div class="flex justify-between items-center">
+                            <h4 class="font-semibold text-slate-700">${a.title}</h4>
+                            <span class="text-sm text-slate-500">${a.date}</span>
+                        </div>
+                        <div class="details mt-2">
+                            <p class="text-sm text-slate-600">${a.details}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+
+            renderProjects();
+            renderSkills();
+            renderAwards();
+
+            // Interactivity
+            const tabs = document.querySelectorAll('.tab-btn');
+            const sections = document.querySelectorAll('.content-section');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => {
+                        t.classList.remove('tab-active');
+                        t.classList.add('tab-inactive');
+                    });
+                    sections.forEach(s => s.classList.remove('active'));
+
+                    tab.classList.add('tab-active');
+                    tab.classList.remove('tab-inactive');
+                    document.getElementById(tab.dataset.tab).classList.add('active');
+                });
+            });
+
+            document.querySelectorAll('.project-card, .award-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const details = item.querySelector('.details');
+                    if (details.style.maxHeight && details.style.maxHeight !== '0px') {
+                        details.style.maxHeight = '0px';
+                        item.classList.remove('bg-sky-50');
+                    } else {
+                        details.style.maxHeight = details.scrollHeight + 'px';
+                        item.classList.add('bg-sky-50');
+                    }
+                });
+            });
+            
+            // Chart.js Radar Chart
+            const ctx = document.getElementById('abilityChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['AI 技术理解', '产品设计思维', '市场洞察力', '数据分析与建模', '动手实践能力', '沟通与协作'],
+                    datasets: [{
+                        label: '能力评估',
+                        data: [90, 85, 95, 90, 90, 85], // Hardcoded as no specific data in JSON for this
+                        backgroundColor: 'rgba(2, 132, 199, 0.2)', // sky-600 with opacity
+                        borderColor: 'rgb(2, 132, 199)',
+                        pointBackgroundColor: 'rgb(2, 132, 199)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(2, 132, 199)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 14,
+                                    family: "'Noto Sans SC', sans-serif"
+                                },
+                                color: '#1e293b' // slate-800
+                            },
+                            ticks: {
+                                backdropColor: 'rgba(0,0,0,0)',
+                                stepSize: 20
+                            },
+                             min: 0,
+                             max: 100
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                           display: false
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
